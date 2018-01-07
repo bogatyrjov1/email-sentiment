@@ -1,5 +1,7 @@
-The goal of this project is to explore machine learning techniques by calculating email sentiment.
+The goal of this project is to explore machine learning techniques by calculating email sentiment either based on either supervised or unsupervised learning.
 
-Datasets in use:
-- Enron ( 434,089 emails )
-- Hillary Clinton ( 7,936 emails )
+Datasets to play with:
+- Enron ( 434k emails, uncategorized )
+- Hillary Clinton ( 8k emails, uncategorized )
+- Some tweets ( 1.5m tweets, categorized by sentiment polarity )
+- IMDB movie reviews ( categorized )
