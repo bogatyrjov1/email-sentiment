@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Run MySQL container
+if [ -z "$(docker ps -qaf name=ml-db)" ]; then
+    echo "MySQL container does not exist. Running"
+    docker run --name ml-db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mariadb
+    echo "Please import db dump manually and fix urls"
+elif [ -z "$(docker ps -qf name=ml-db)" ]; then
+    echo "MySQL container exists. Starting"
+    docker start ml-db
+else
+    echo "MySQL container is already running"
+fi
+if [ $? != 0 ]; then exit 1; fi
