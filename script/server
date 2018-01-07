@@ -32,7 +32,7 @@ fi
 # Run app docker container
 if [ -z "$(docker ps -qaf name=${APP_CONTAINER_NAME})" ]; then
     echo "Running ${APP_CONTAINER_NAME} docker container"
-    docker run -it --name ${APP_CONTAINER_NAME} -p 8888:8888 -p 6006:6006 -v ${DIR}:/root/email-sentiment --network ${NETWORK_NAME} floydhub/dl-docker:cpu bash
+    docker run --name ${APP_CONTAINER_NAME} -p 8888:8888 -p 6006:6006 -v ${DIR}:/root/email-sentiment -d --network ${NETWORK_NAME} floydhub/dl-docker:cpu
     echo "Docker container ${APP_CONTAINER_NAME} is running"
 elif  [ -z "$(docker ps -qf name=${APP_CONTAINER_NAME}$)" ]; then
     echo "Starting ${APP_CONTAINER_NAME} docker container"
