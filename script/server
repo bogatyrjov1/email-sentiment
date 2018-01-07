@@ -11,7 +11,6 @@ cd ${DIR}
 if ! [ $(docker network ls -qf name=${NETWORK_NAME}) ]; then
     echo "Creating ${NETWORK_NAME} docker network"
     docker network create ${NETWORK_NAME}
-    echo "Docker network ${NETWORK_NAME} created"
 else
     echo "Docker network ${NETWORK_NAME} already created"
 fi
@@ -19,12 +18,10 @@ fi
 # Run db docker container
 if [ -z "$(docker ps -qaf name=${DB_CONTAINER_NAME})" ]; then
     echo "Running ${DB_CONTAINER_NAME} docker container"
-    docker run --name ${DB_CONTAINER_NAME} -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root MYSQL_ALLOW_EMPTY_PASSWORD=true -d --network ${NETWORK_NAME} mariadb
-    echo "Docker container ${DB_CONTAINER_NAME} is running. Please import db manually"
+    docker run --name ${DB_CONTAINER_NAME} -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d --network ${NETWORK_NAME} mariadb
 elif [ -z "$(docker ps -qf name=${DB_CONTAINER_NAME})" ]; then
     echo "Starting ${DB_CONTAINER_NAME} docker container"
     docker start ${DB_CONTAINER_NAME}
-    echo "Docker container ${DB_CONTAINER_NAME} started"
 else
     echo "Docker container ${DB_CONTAINER_NAME} is already running"
 fi
@@ -32,12 +29,10 @@ fi
 # Run app docker container
 if [ -z "$(docker ps -qaf name=${APP_CONTAINER_NAME})" ]; then
     echo "Running ${APP_CONTAINER_NAME} docker container"
-    docker run --name ${APP_CONTAINER_NAME} -p 8888:8888 -p 6006:6006 -v ${DIR}:/root/email-sentiment -d --network ${NETWORK_NAME} floydhub/dl-docker:cpu
-    echo "Docker container ${APP_CONTAINER_NAME} is running"
+    docker run -it --name ${APP_CONTAINER_NAME} -p 8888:8888 -p 6006:6006 -v ${DIR}:/root/email-sentiment -d --network ${NETWORK_NAME} floydhub/dl-docker:cpu bash
 elif  [ -z "$(docker ps -qf name=${APP_CONTAINER_NAME}$)" ]; then
     echo "Starting ${APP_CONTAINER_NAME} docker container"
     docker start ${APP_CONTAINER_NAME}
-    echo "Docker container ${APP_CONTAINER_NAME} started"
 else
     echo "Docker container ${APP_CONTAINER_NAME} is already running"
 fi
