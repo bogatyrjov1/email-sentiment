@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Include conf
-source $(dirname $0)/conf
+source $(dirname $0)/../conf/conf_docker
 
 # Change current dir to root
 DIR=$(cd $( dirname $0 )/.. && pwd)
@@ -29,7 +29,7 @@ fi
 # Run app docker container
 if [ -z "$(docker ps -qaf name=${APP_CONTAINER_NAME})" ]; then
     echo "Running ${APP_CONTAINER_NAME} docker container"
-    docker run -it --name ${APP_CONTAINER_NAME} -p 8888:8888 -p 6006:6006 -v ${DIR}:/root/email-sentiment -d --network ${NETWORK_NAME} floydhub/dl-docker:cpu bash
+    docker run -it --name ${APP_CONTAINER_NAME} -p 8888:8888 -p 6006:6006 -v ${DIR}:/root/email-sentiment -e CONF_SANDBOX=/root/email-sentiment/conf/conf_sandbox.yml -d --network ${NETWORK_NAME} floydhub/dl-docker:cpu bash
 elif  [ -z "$(docker ps -qf name=${APP_CONTAINER_NAME}$)" ]; then
     echo "Starting ${APP_CONTAINER_NAME} docker container"
     docker start ${APP_CONTAINER_NAME}
