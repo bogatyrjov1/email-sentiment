@@ -7,6 +7,7 @@ The goal of this project is to explore machine learning techniques by determinin
 1) Clone this repo
 2) Make sure you have the `conf/conf_sandbox.yml` file
 3) Run `script/server`
+4) Inside app container run `cd /root/email-sentiment/ && pip install -r requirements.txt`
 
 This will spin up a network of 2 docker containers ( db and app ) and run bash inside app container.
 When inside app container, run python scripts in this repo separately.
