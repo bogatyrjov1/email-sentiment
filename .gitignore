@@ -1,5 +1,5 @@
 .idea
 .pyc
 data
-conf
+conf/conf_sandbox.yml
 __pycache__

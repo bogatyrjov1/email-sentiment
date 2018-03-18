@@ -1,0 +1,3 @@
+APP_CONTAINER_NAME=ml-app
+DB_CONTAINER_NAME=ml-db
+NETWORK_NAME=ml-network
