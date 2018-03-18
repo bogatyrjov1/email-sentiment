@@ -37,4 +37,15 @@ else
     echo "Docker container ${APP_CONTAINER_NAME} is already running"
 fi
 
+sleep 1
+
+if [ $(docker inspect -f {{.State.Running}} ${APP_CONTAINER_NAME}) ]; then
+    echo "Launching application console"
+    docker exec -it ${APP_CONTAINER_NAME} bash
+else
+    echo "Failed to launch application console"
+    echo "Try running \"docker exec -it ${APP_CONTAINER_NAME} bash\" manually"
+fi
+
+
 if [ $? != 0 ]; then exit 1; fi
